@@ -159,11 +159,11 @@ canvas.addEventListener('mousemove',e => {
     mouse.y = e.clientY
 })
 
-
+//api 날씨 데이터를 가져온다
 function getWeatherData(){
-    const lat = 37.532600
-    const lon = 127.024612
-    const appKey = '307cedd58b0d9287f330f6bbe4e51678'
+    const lat = 37.532600 //위도
+    const lon = 127.024612 //경도
+    const appKey = 'appKey 홈페이지 참조'
     const data = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}`)
     return data
 }
