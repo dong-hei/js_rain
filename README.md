@@ -1,7 +1,7 @@
 
 # js_rain
 
-//선언
+선언
 const THUNDER_RATE = 0.007
 let total
 let rains = []
@@ -12,7 +12,7 @@ const randomBetween = (min,max) =>{
     return Math.floor(Math.random() * (max - min  +1) + min)
 }
 
-//빗줄기
+빗줄기
 class Rain{
     constructor(x, y, velocity){
         this.x = x
@@ -20,7 +20,7 @@ class Rain{
         this.velocity = velocity
     }
     
-//빗줄기 그리기
+빗줄기 그리기
     draw(){
         const { x,y, velocity } = this
         ctx.beginPath() // 그림그릴거라고 알린다.
@@ -31,7 +31,7 @@ class Rain{
         ctx.stroke() //그린다
     }
 
-//떨어지는 위치 루프
+떨어지는 위치 루프
     splash(){
         for (let i = 0; i < 3 ; i++){
             const velocity = {
@@ -43,7 +43,7 @@ class Rain{
         }
     }
 
-//떨어지는 속도 조정
+떨어지는 속도 조정
     animate(){
         if (this.y > innerHeight){
             this.splash()
@@ -61,7 +61,7 @@ class Rain{
     }
 
 }
-//물방울 튀기기
+물방울 튀기기
 class Drop{
     constructor(x, y, velocity){
         this.x = x
@@ -70,7 +70,7 @@ class Drop{
         this.gravity = 1.5
     }
 
-//물방울 그리기
+물방울 그리기
     draw(){
         ctx.beginPath()
         ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2) // 튀기는 원 그리기
@@ -78,7 +78,7 @@ class Drop{
         ctx.fill()
     }
 
-//물방울 떨어지는 위치 조정
+물방울 떨어지는 위치 조정
     animate(){
         this.velocity.y += this.gravity
         this.x += this.velocity.x
@@ -90,12 +90,12 @@ class Drop{
    
 }
 
-//번개
+번개
 class Thunder{
     constructor(){
         this.opacity = 0
     }
-//번개 위치
+번개 위치
     draw(){
         const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
         gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) //시작 색
@@ -104,7 +104,7 @@ class Thunder{
         ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
     }
 
-//번개 투명도
+번개 투명도
     animate(){
         if (this.opacity < 0 ) return 
         this.opacity -= 0.005
@@ -112,22 +112,22 @@ class Thunder{
     }
 }
 
-//초기화 : 윈도우 리사이즈됐을때 캔버스의 가로세로 길이를 유동적으로 만들기위해서
+초기화 : 윈도우 리사이즈됐을때 캔버스의 가로세로 길이를 유동적으로 만들기위해서
 function init(){
     canvas.width = innerWidth
     canvas.height = innerHeight
-//캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
+캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
     total = Math.floor(innerWidth * innerHeight / 15000)
     rains= []
     drops= []
     thunder = new Thunder()
 
-//번개 랜덤으로 떨어지게끔
+번개 랜덤으로 떨어지게끔
     for (let i = 0; i < total; i++){
         const x = randomBetween(0, innerWidth)
         const y = randomBetween(0, innerHeight) 
         
-//속도 조정
+속도 조정
         const velocity = {
             // x: randomBetween(-1, 1),
             y: randomBetween(13, 18)
@@ -138,7 +138,7 @@ function init(){
 
 }
 
-//랜더
+랜더
 function render(){
     ctx.clearRect(0,0, canvas.width, canvas.height)
     if (Math.random() < THUNDER_RATE) thunder.opacity = 1
@@ -146,12 +146,12 @@ function render(){
     rains.forEach(rain => rain.animate())
     drops.forEach((drop,index)=> {
         drop.animate()
-        if (drop.y > innerHeight) drops.splice(index,1 )}) //완전히 떨어지면 제거
+        if (drop.y > innerHeight) drops.splice(index,1 )}) 완전히 떨어지면 제거
     window.requestAnimationFrame(render)
-    // 매 프레임마다 그리고 지움을 반복
+    매 프레임마다 그리고 지움을 반복
 }
 
-//리사이즈 이벤트
+리사이즈 이벤트
 window.addEventListener('resize', () => init())
 canvas.addEventListener('mouseenter', () => mouse.isActive = true)
 canvas.addEventListener('mouseleave', () => mouse.isActive = false)
@@ -160,7 +160,7 @@ canvas.addEventListener('mousemove',e => {
     mouse.y = e.clientY
 })
 
-//api 날씨 데이터를 가져온다
+api 날씨 데이터를 가져온다
 function getWeatherData(){
     const lat = 37.532600 //위도
     const lon = 127.024612 //경도
@@ -172,8 +172,7 @@ function getWeatherData(){
 getWeatherData().then(res => {
     const currentWeather =res.data.weather[0].main
     console.log(currentWeather)
-    const rainingStatus = ['Rain','Thunderstorm', 'Drizzle', 'Clear']
-    // rain으로 선택시 비오는 날에만 동작
+    const rainingStatus = ['Rain','Thunderstorm', 'Drizzle', 'Clear'] rain으로 선택시 비오는 날에만 동작
     if (rainingStatus.includes(currentWeather)){
         init()
         render()
