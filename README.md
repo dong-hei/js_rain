@@ -131,9 +131,7 @@ function init(){
         const velocity = {
             // x: randomBetween(-1, 1),
             y: randomBetween(13, 18)
-        }
-
-        rains.push(new Rain(x, y, velocity))
+        }rains.push(new Rain(x, y, velocity))
     }
 
 }
