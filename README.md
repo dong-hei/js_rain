@@ -1,4 +1,4 @@
-# js_rain
+# js_rain 
 
 선언
 const THUNDER_RATE = 0.007
