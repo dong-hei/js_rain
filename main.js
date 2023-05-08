@@ -12,7 +12,6 @@ const randomBetween = (min,max) =>{
     return Math.floor(Math.random() * (max - min  +1) + min)
 }
 
-//빗줄기
 class Rain{
     constructor(x, y, velocity){
         this.x = x
@@ -22,12 +21,12 @@ class Rain{
 
     draw(){
         const { x,y, velocity } = this
-        ctx.beginPath() // 그림그릴거라고 알린다.
+        ctx.beginPath() 
         ctx.moveTo(x,y)
-        ctx.lineTo(x + velocity.x * 2 , y + velocity.y * 2) // x,y 좌표로 라인을 그리겠다고 선언
-        ctx.strokeStyle = '#8899a6' //스트로크 색상
+        ctx.lineTo(x + velocity.x * 2 , y + velocity.y * 2) 
+        ctx.strokeStyle = '#8899a6'
         ctx.lineWidth = 1.5
-        ctx.stroke() //그린다
+        ctx.stroke()
     }
 
     splash(){
@@ -58,7 +57,7 @@ class Rain{
     }
 
 }
-//물방울 튀기기
+
 class Drop{
     constructor(x, y, velocity){
         this.x = x
@@ -69,7 +68,7 @@ class Drop{
 
     draw(){
         ctx.beginPath()
-        ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2) // 원 그리기
+        ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2)
         ctx.fillStyle = '#8899a6'
         ctx.fill()
     }
@@ -94,10 +93,10 @@ class Thunder{
 
     draw(){
         const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
-        gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) //시작 색
-        gradient.addColorStop(1, `rgba(18,23,27, ${this.opacity})`) //끝 색 
+        gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) 
+        gradient.addColorStop(1, `rgba(18,23,27, ${this.opacity})`)
         ctx.fillStyle = gradient
-        ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
+        ctx.fillRect(0,0, innerWidth, innerHeight) 
     }
 
     animate(){
@@ -107,11 +106,9 @@ class Thunder{
     }
 }
 
-//초기화 : 윈도우 리사이즈됐을때 캔버스의 가로세로 길이를 유동적으로 만들기위해서
 function init(){
     canvas.width = innerWidth
     canvas.height = innerHeight
-//캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
 
     total = Math.floor(innerWidth * innerHeight / 15000)
     rains= []
@@ -120,10 +117,9 @@ function init(){
 
     for (let i = 0; i < total; i++){
         const x = randomBetween(0, innerWidth)
-        const y = randomBetween(0, innerHeight) //랜덤으로 떨어지게끔
+        const y = randomBetween(0, innerHeight) 
 
         const velocity = {
-            // x: randomBetween(-1, 1),
             y: randomBetween(13, 18)
         }
 
@@ -132,7 +128,6 @@ function init(){
 
 }
 
-//랜더
 function render(){
     ctx.clearRect(0,0, canvas.width, canvas.height)
     if (Math.random() < THUNDER_RATE) thunder.opacity = 1
@@ -142,10 +137,8 @@ function render(){
         drop.animate()
         if (drop.y > innerHeight) drops.splice(index,1 )}) //완전히 떨어지면 제거
     window.requestAnimationFrame(render)
-    // 매 프레임마다 그리고 지움을 반복
 }
 
-//리사이즈 이벤트
 window.addEventListener('resize', () => init())
 canvas.addEventListener('mouseenter', () => mouse.isActive = true)
 canvas.addEventListener('mouseleave', () => mouse.isActive = false)
@@ -167,7 +160,6 @@ getWeatherData().then(res => {
     const currentWeather =res.data.weather[0].main
     console.log(currentWeather)
     const rainingStatus = ['Rain','Thunderstorm', 'Drizzle', 'Clear']
-    // rain으로 선택시 비오는 날에만 동작
     if (rainingStatus.includes(currentWeather)){
         init()
         render()
