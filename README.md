@@ -1,9 +1,6 @@
 
 # js_rain
 
-const canvas = document.querySelector('canvas')
-const ctx = canvas.getContext('2d')
-
 //선언
 const THUNDER_RATE = 0.007
 let total
@@ -11,12 +8,9 @@ let rains = []
 let drops = []
 let thunder
 let mouse = {x:0, y:0, isActive: false}
-
-
 const randomBetween = (min,max) =>{
     return Math.floor(Math.random() * (max - min  +1) + min)
 }
-
 
 //빗줄기
 class Rain{
@@ -26,6 +20,7 @@ class Rain{
         this.velocity = velocity
     }
     
+//빗줄기 그리기
     draw(){
         const { x,y, velocity } = this
         ctx.beginPath() // 그림그릴거라고 알린다.
@@ -35,7 +30,8 @@ class Rain{
         ctx.lineWidth = 1.5
         ctx.stroke() //그린다
     }
-    
+
+//떨어지는 위치 루프
     splash(){
         for (let i = 0; i < 3 ; i++){
             const velocity = {
@@ -47,6 +43,7 @@ class Rain{
         }
     }
 
+//떨어지는 속도 조정
     animate(){
         if (this.y > innerHeight){
             this.splash()
@@ -73,6 +70,7 @@ class Drop{
         this.gravity = 1.5
     }
 
+//물방울 그리기
     draw(){
         ctx.beginPath()
         ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2) // 튀기는 원 그리기
@@ -80,8 +78,7 @@ class Drop{
         ctx.fill()
     }
 
-   
-
+//물방울 떨어지는 위치 조정
     animate(){
         this.velocity.y += this.gravity
         this.x += this.velocity.x
@@ -93,11 +90,12 @@ class Drop{
    
 }
 
+//번개
 class Thunder{
     constructor(){
         this.opacity = 0
     }
-
+//번개 위치
     draw(){
         const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
         gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) //시작 색
@@ -106,6 +104,7 @@ class Thunder{
         ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
     }
 
+//번개 투명도
     animate(){
         if (this.opacity < 0 ) return 
         this.opacity -= 0.005
@@ -118,16 +117,17 @@ function init(){
     canvas.width = innerWidth
     canvas.height = innerHeight
 //캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
-
     total = Math.floor(innerWidth * innerHeight / 15000)
     rains= []
     drops= []
     thunder = new Thunder()
 
+//번개 랜덤으로 떨어지게끔
     for (let i = 0; i < total; i++){
         const x = randomBetween(0, innerWidth)
-        const y = randomBetween(0, innerHeight) //랜덤으로 떨어지게끔
-
+        const y = randomBetween(0, innerHeight) 
+        
+//속도 조정
         const velocity = {
             // x: randomBetween(-1, 1),
             y: randomBetween(13, 18)
