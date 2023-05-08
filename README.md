@@ -1,3 +1,4 @@
+
 # js_rain
 
 const canvas = document.querySelector('canvas')
@@ -24,7 +25,7 @@ class Rain{
         this.y = y
         this.velocity = velocity
     }
-
+    
     draw(){
         const { x,y, velocity } = this
         ctx.beginPath() // 그림그릴거라고 알린다.
@@ -34,7 +35,7 @@ class Rain{
         ctx.lineWidth = 1.5
         ctx.stroke() //그린다
     }
-
+    
     splash(){
         for (let i = 0; i < 3 ; i++){
             const velocity = {
