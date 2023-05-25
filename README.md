@@ -1,6 +1,7 @@
 # js_rain 
 
 선언
+<br></br>
 const THUNDER_RATE = 0.007<br></br>
 let total<br></br>
 let rains = []<br></br>
@@ -13,8 +14,8 @@ const randomBetween = (min,max) =>{
 <br></br>
 
 빗줄기
-class Rain{
-    constructor(x, y, velocity){
+<br></br>class Rain{
+<br></br>constructor(x, y, velocity){
         this.x = x
         this.y = y
         this.velocity = velocity
