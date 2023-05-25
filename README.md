@@ -2,15 +2,16 @@
 
 선언
 const THUNDER_RATE = 0.007
-<br>let total</br>
-let rains = []<br></br>
-let drops = []<br></br>
-let thunder<br></br>
+>let total
+let rains = []
+let drops = []
+let thunder
 let mouse = {x:0, y:0, isActive: false}<br></br>
 const randomBetween = (min,max) =>{
     return Math.floor(Math.random() * (max - min  +1) + min)
 }
 <br></br>
+
 빗줄기
 class Rain{
     constructor(x, y, velocity){
@@ -18,7 +19,8 @@ class Rain{
         this.y = y
         this.velocity = velocity
     }
-    
+<br></br>
+
 빗줄기 그리기
     draw(){
         const { x,y, velocity } = this
@@ -41,6 +43,7 @@ class Rain{
             drops.push(new Drop(this.x, innerHeight, velocity))
         }
     }
+<br></br>
 
 떨어지는 속도 조정
     animate(){
@@ -60,6 +63,8 @@ class Rain{
     }
 
 }
+<br></br>
+
 물방울 튀기기
 class Drop{
     constructor(x, y, velocity){
@@ -68,7 +73,7 @@ class Drop{
         this.velocity = velocity
         this.gravity = 1.5
     }
-
+<br></br>
 물방울 그리기
     draw(){
         ctx.beginPath()
@@ -77,6 +82,7 @@ class Drop{
         ctx.fill()
     }
 
+<br></br>
 물방울 떨어지는 위치 조정
     animate(){
         this.velocity.y += this.gravity
@@ -88,12 +94,14 @@ class Drop{
 
    
 }
-
+<br></br>
 번개
 class Thunder{
     constructor(){
         this.opacity = 0
     }
+   
+   <br></br>
 번개 위치
     draw(){
         const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
@@ -103,6 +111,7 @@ class Thunder{
         ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
     }
 
+<br></br>
 번개 투명도
     animate(){
         if (this.opacity < 0 ) return 
@@ -111,6 +120,7 @@ class Thunder{
     }
 }
 
+<br></br>
 초기화 : 윈도우 리사이즈됐을때 캔버스의 가로세로 길이를 유동적으로 만들기위해서
 function init(){
     canvas.width = innerWidth
@@ -121,11 +131,13 @@ function init(){
     drops= []
     thunder = new Thunder()
 
+<br></br>
 번개 랜덤으로 떨어지게끔
     for (let i = 0; i < total; i++){
         const x = randomBetween(0, innerWidth)
         const y = randomBetween(0, innerHeight) 
-        
+   
+   <br></br>
 속도 조정
         const velocity = {
             // x: randomBetween(-1, 1),
@@ -135,6 +147,7 @@ function init(){
 
 }
 
+<br></br>
 랜더
 function render(){
     ctx.clearRect(0,0, canvas.width, canvas.height)
@@ -148,6 +161,7 @@ function render(){
     매 프레임마다 그리고 지움을 반복
 }
 
+<br></br>
 리사이즈 이벤트
 window.addEventListener('resize', () => init())
 canvas.addEventListener('mouseenter', () => mouse.isActive = true)
@@ -156,7 +170,7 @@ canvas.addEventListener('mousemove',e => {
     mouse.x = e.clientX
     mouse.y = e.clientY
 })
-
+<br></br>
 api 날씨 데이터를 가져온다
 function getWeatherData(){
     const lat = 37.532600 //위도
@@ -166,6 +180,7 @@ function getWeatherData(){
     return data
 }
 
+<br></br>
 getWeatherData().then(res => {
     const currentWeather =res.data.weather[0].main
     console.log(currentWeather)
