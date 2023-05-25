@@ -16,9 +16,9 @@ const randomBetween = (min,max) =>{
 빗줄기
 <br></br>class Rain{
 <br></br>constructor(x, y, velocity){
-        this.x = x
-        this.y = y
-        this.velocity = velocity
+  <br></br>      this.x = x
+  <br></br>      this.y = y
+   <br></br>     this.velocity = velocity
     }
 <br></br>
 
@@ -35,32 +35,30 @@ const randomBetween = (min,max) =>{
 
 떨어지는 위치 루프
 <br></br>  splash(){
-        for (let i = 0; i < 3 ; i++){
-            const velocity = {
-                x: -this.velocity.x + randomBetween(-10, -3),
-                y: -this.velocity.y + randomBetween(15, 3)
-
-            }
-            drops.push(new Drop(this.x, innerHeight, velocity))
-        }
+    <br></br>    for (let i = 0; i < 3 ; i++){
+    <br></br>        const velocity = {
+      <br></br>          x: -this.velocity.x + randomBetween(-10, -3),
+      <br></br>          y: -this.velocity.y + randomBetween(15, 3)
+       <br></br>     }
+     <br></br>       drops.push(new Drop(this.x, innerHeight, velocity))
+    <br></br>    }
     }
 <br></br>
 
 떨어지는 속도 조정
 <br></br> animate(){
 <br></br>  if (this.y > innerHeight){
-            this.splash()
-            this.x = randomBetween(-innerWidth * 0.2, innerWidth * 1.5)
-            this.y = -20
+   <br></br>         this.splash()
+    <br></br>        this.x = randomBetween(-innerWidth * 0.2, innerWidth * 1.5)
+     <br></br>       this.y = -20
         }
 <br></br>     this.velocity.x = mouse.isActive
-        ? randomBetween(-1, 1) + (-innerWidth /2 + mouse.x) / 55
-        : randomBetween(-1, 1)
+  <br></br>      ? randomBetween(-1, 1) + (-innerWidth /2 + mouse.x) / 55
+  <br></br>      : randomBetween(-1, 1)
 
-        this.x += this.velocity.x
-        this.y += this.velocity.y
-
-        this.draw()
+   <br></br>     this.x += this.velocity.x
+   <br></br>     this.y += this.velocity.y
+    <br></br>    this.draw()
     }
 
 }
@@ -69,28 +67,28 @@ const randomBetween = (min,max) =>{
 물방울 튀기기
 <br></br>class Drop{
 <br></br> constructor(x, y, velocity){
-        this.x = x
-        this.y = y
-        this.velocity = velocity
-        this.gravity = 1.5
+   <br></br>     this.x = x
+   <br></br>     this.y = y
+   <br></br>     this.velocity = velocity
+   <br></br>     this.gravity = 1.5
     }
 <br></br>
 물방울 그리기
 <br></br>   draw(){
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2) // 튀기는 원 그리기
-        ctx.fillStyle = '#8899a6'
-        ctx.fill()
+    <br></br>    ctx.beginPath()
+    <br></br>    ctx.arc(this.x, this.y, 1.5, 0 , Math.PI * 2) // 튀기는 원 그리기
+    <br></br>    ctx.fillStyle = '#8899a6'
+    <br></br>    ctx.fill()
     }
 
 <br></br>
 물방울 떨어지는 위치 조정
 <br></br>  animate(){
-        this.velocity.y += this.gravity
-        this.x += this.velocity.x
-        this.y += this.velocity.y
+  <br></br>      this.velocity.y += this.gravity
+   <br></br>     this.x += this.velocity.x
+   <br></br>     this.y += this.velocity.y
 
-        this.draw()
+   <br></br>    this.draw()
     }
 
    
@@ -98,52 +96,52 @@ const randomBetween = (min,max) =>{
 <br></br>
 번개
 <br></br>class Thunder{
-    constructor(){
-        this.opacity = 0
+  <br></br>  constructor(){
+  <br></br>      this.opacity = 0
     }
    
    <br></br>
 번개 위치
  <br></br>   draw(){
-        const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
-        gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) //시작 색
-        gradient.addColorStop(1, `rgba(18,23,27, ${this.opacity})`) //끝 색 
-        ctx.fillStyle = gradient
-        ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
+ <br></br>       const gradient = ctx.createLinearGradient(0,0,0, innerHeight)
+  <br></br>      gradient.addColorStop(0, `rgba(66,84,99, ${this.opacity})`) //시작 색
+   <br></br>     gradient.addColorStop(1, `rgba(18,23,27, ${this.opacity})`) //끝 색 
+   <br></br>     ctx.fillStyle = gradient
+    <br></br>    ctx.fillRect(0,0, innerWidth, innerHeight) //전체 배경식을 칠한다.
     }
 
 <br></br>
 번개 투명도
 <br></br>   animate(){
-        if (this.opacity < 0 ) return 
-        this.opacity -= 0.005
-        this.draw()
+<br></br>        if (this.opacity < 0 ) return 
+ <br></br>       this.opacity -= 0.005
+ <br></br>       this.draw()
     }
 }
 
 <br></br>
 초기화 : 윈도우 리사이즈됐을때 캔버스의 가로세로 길이를 유동적으로 만들기위해서
 <br></br>function init(){
-    canvas.width = innerWidth
-    canvas.height = innerHeight
-캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
-    total = Math.floor(innerWidth * innerHeight / 15000)
-    rains= []
-    drops= []
-    thunder = new Thunder()
+<br></br>    canvas.width = innerWidth
+<br></br>    canvas.height = innerHeight
+<br></br>캔버스 가로,세로 길이를 화면의 가로,세로길이에 대입한다.
+ <br></br>   total = Math.floor(innerWidth * innerHeight / 15000)
+ <br></br>   rains= []
+  <br></br>  drops= []
+  <br></br>  thunder = new Thunder()
 
 <br></br>
 <br></br>번개 랜덤으로 떨어지게끔
-    for (let i = 0; i < total; i++){
-        const x = randomBetween(0, innerWidth)
-        const y = randomBetween(0, innerHeight) 
+<br></br>    for (let i = 0; i < total; i++){
+ <br></br>       const x = randomBetween(0, innerWidth)
+<br></br>        const y = randomBetween(0, innerHeight) 
    
    <br></br>
 <br></br>속도 조정
-        const velocity = {
-            // x: randomBetween(-1, 1),
-            y: randomBetween(13, 18)
-        }rains.push(new Rain(x, y, velocity))
+ <br></br>       const velocity = {
+  <br></br>          // x: randomBetween(-1, 1),
+  <br></br>          y: randomBetween(13, 18)
+  <br></br>      }rains.push(new Rain(x, y, velocity))
     }
 
 }
@@ -151,42 +149,42 @@ const randomBetween = (min,max) =>{
 <br></br>
 랜더
 <br></br>function render(){
-    ctx.clearRect(0,0, canvas.width, canvas.height)
-    if (Math.random() < THUNDER_RATE) thunder.opacity = 1
-    thunder.animate()
-    rains.forEach(rain => rain.animate())
-    drops.forEach((drop,index)=> {
-        drop.animate()
-        if (drop.y > innerHeight) drops.splice(index,1 )}) 완전히 떨어지면 제거
-    window.requestAnimationFrame(render)
-    매 프레임마다 그리고 지움을 반복
+<br></br>    ctx.clearRect(0,0, canvas.width, canvas.height)
+<br></br>    if (Math.random() < THUNDER_RATE) thunder.opacity = 1
+<br></br>    thunder.animate()
+<br></br>    rains.forEach(rain => rain.animate())
+<br></br>    drops.forEach((drop,index)=> {
+ <br></br>       drop.animate()
+<br></br>        if (drop.y > innerHeight) drops.splice(index,1 )}) 완전히 떨어지면 제거
+<br></br>    window.requestAnimationFrame(render)
+<br></br>    매 프레임마다 그리고 지움을 반복
 }
 
 <br></br>
 <br></br>리사이즈 이벤트
-window.addEventListener('resize', () => init())
-canvas.addEventListener('mouseenter', () => mouse.isActive = true)
-canvas.addEventListener('mouseleave', () => mouse.isActive = false)
-canvas.addEventListener('mousemove',e => {
-    mouse.x = e.clientX
-    mouse.y = e.clientY
+<br></br>window.addEventListener('resize', () => init())
+<br></br>canvas.addEventListener('mouseenter', () => mouse.isActive = true)
+<br></br>canvas.addEventListener('mouseleave', () => mouse.isActive = false)
+<br></br>canvas.addEventListener('mousemove',e => {
+<br></br>    mouse.x = e.clientX
+ <br></br>   mouse.y = e.clientY
 })
 <br></br>
 api 날씨 데이터를 가져온다
 <br></br>function getWeatherData(){
-    const lat = 37.532600 //위도
-    const lon = 127.024612 //경도
-    const appKey = 'appKey 홈페이지 참조'
-    const data = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}`)
-    return data
+<br></br>   const lat = 37.532600 //위도
+<br></br>  const lon = 127.024612 //경도
+<br></br>const appKey = 'appKey 홈페이지 참조'
+<br></br> const data = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appKey}`)
+<br></br>  return data
 }
 
 <br></br>
 getWeatherData().then(res => {
 <br></br>  const currentWeather =res.data.weather[0].main
-    console.log(currentWeather)
-    const rainingStatus = ['Rain','Thunderstorm', 'Drizzle', 'Clear'] rain으로 선택시 비오는 날에만 동작
-    if (rainingStatus.includes(currentWeather)){
-        init()
-        render()
+<br></br>  console.log(currentWeather)
+<br></br>  const rainingStatus = ['Rain','Thunderstorm', 'Drizzle', 'Clear'] rain으로 선택시 비오는 날에만 동작
+<br></br>  if (rainingStatus.includes(currentWeather)){
+<br></br>   init()
+<br></br>  render()
     }
