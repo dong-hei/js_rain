@@ -2,15 +2,15 @@
 
 선언
 const THUNDER_RATE = 0.007
-let total
-let rains = []
-let drops = []
-let thunder
-let mouse = {x:0, y:0, isActive: false}
+<br>let total</br>
+let rains = []<br></br>
+let drops = []<br></br>
+let thunder<br></br>
+let mouse = {x:0, y:0, isActive: false}<br></br>
 const randomBetween = (min,max) =>{
     return Math.floor(Math.random() * (max - min  +1) + min)
 }
-
+<br></br>
 빗줄기
 class Rain{
     constructor(x, y, velocity){
